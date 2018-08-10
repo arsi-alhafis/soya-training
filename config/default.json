@@ -1,0 +1,14 @@
+{
+  "apiHost": "https://crud.test.tvlk.cloud",
+  "auth": {
+    "authURL": "https://tvlk-dev.auth0.com/authorize",
+    "clientId": "Wk1sn3mQfdtfw1oRpEY6dFWN3MFmUJj2",
+    "audience": "https://tvlk/crud",
+    "callbackPath": "/callback",
+    "rememberMe": true,
+    "checkTokenExpiryInterval": 600,
+    "maxTimeElapsedBeforeRefresh": 7200,
+    "activeThreshold": 0,
+    "sendAlert": false
+  }
+ }
