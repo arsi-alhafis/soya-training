@@ -20,14 +20,17 @@ class CurrenciesTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currencies: null,
+            currencies: undefined,
             numberOfPage: 1,
-            theme: 'zetta'
+            theme: 'zetta',
+            currentPage: 0
         }
     }
 
     componentDidMount = () => {
-        this.setState({theme: localStorage.getItem('theme')});
+        let page = parseQueryString().page !== undefined ? parseQueryString().page : 1;
+        console.log(page);
+        this.setState({theme: localStorage.getItem('theme'), currentPage: page - 1});
         this.refresh();
     } 
 
@@ -159,13 +162,16 @@ class CurrenciesTable extends React.Component {
                                 </tr>
                         }
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colSpan={5}>
-                                <Pagination onPageChange={this.changePage} initialPage={0} totalPage={this.state.numberOfPage} marginBottom />
-                            </td>
-                        </tr>
-                    </tfoot>
+                    {
+                        this.state.currencies !== undefined ?
+                        <tfoot>
+                            <tr>
+                                <td colSpan={5}>
+                                    <Pagination onPageChange={this.changePage} initialPage={this.state.currentPage} totalPage={this.state.numberOfPage} marginBottom />
+                                </td>
+                            </tr>
+                        </tfoot> : <tfoot></tfoot>
+                    }
                 </Table>
             </div>
         );
