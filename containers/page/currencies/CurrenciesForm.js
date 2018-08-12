@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import fetch from "isomorphic-unfetch";
-import { Box, Switch, Label, BoxBody, BoxEmpty, BoxHeader, BoxFooter } from '@traveloka/soya-components';
+import { Box, Switch, Label, BoxBody, BoxEmpty, BoxHeader, BoxFooter, Breadcrumb } from '@traveloka/soya-components';
 import {
     InputGroup,
     InputGroupAddon,
@@ -24,8 +24,13 @@ class CurrenciesForm extends React.Component {
             showErrorName: false,
             errorMessageName: [],
             showErrorSymbol: false,
-            errorMessageSymbol: []
+            errorMessageSymbol: [],
+            theme: 'zetta'
         }
+    }
+
+    componentDidMount = () => {
+        this.setState({theme: localStorage.getItem('theme')});
     }
 
     showSuccessNotif = () => {
@@ -152,42 +157,61 @@ class CurrenciesForm extends React.Component {
     }
 
     render() {
+        const links = [
+            {
+              title: 'Soya',
+              href: '/'
+            },
+            {
+                title: 'Currencies',
+                href: '/currencies'
+            },
+            {
+              title: 'Add',
+            }
+          ];
 
         return (
             <div>
+                <br/>
+                <Breadcrumb theme={this.state.theme} links={links} />
+                <br/>
                 <form>
-                    <Box>
-                        <BoxBody>
-                            <Label isRequired>Currency Code</Label>
+                    <Box theme={this.state.theme}>
+                        <BoxBody theme={this.state.theme}>
+                            <Label theme={this.state.theme} isRequired>Currency Code</Label>
                             <Input
+                            theme={this.state.theme}
                             value={this.state.currencyCode}
                             handleChange={this.handleCode}
                             showErrorMessage={this.state.showErrorCode}
                             placeholder='IDR'
                             errorMessages={this.state.errorMessageCode}
                             />
-                            <Label isRequired>Currency Name</Label>
+                            <Label theme={this.state.theme} isRequired>Currency Name</Label>
                             <Input
+                            theme={this.state.theme}
                             value={this.state.currencyName}
                             placeholder='Indonesia Rupiah'
                             handleChange={this.handleName}
                             showErrorMessage={this.state.showErrorName}
                             errorMessages={this.state.errorMessageName}
                             />
-                            <Label isRequired>Currency Symbol</Label>
+                            <Label theme={this.state.theme} isRequired>Currency Symbol</Label>
                             <Input
+                            theme={this.state.theme}
                             value={this.state.currencySymbol}
                             placeholder='Rp'
                             handleChange={this.handleSymbol}
                             showErrorMessage={this.state.showErrorSymbol}
                             errorMessages={this.state.errorMessageSymbol}
                             />
-                            <Label>Is Active?</Label>
-                            <Switch value={this.state.isActive} onChange={this.handleActive}/>
+                            <Label theme={this.state.theme}>Is Active?</Label>
+                            <Switch theme={this.state.theme} value={this.state.isActive} onChange={this.handleActive}/>
                         </BoxBody>
-                        <BoxFooter>
-                            <Button onClick={this.handleSubmit}variant='orange'>Save</Button> &nbsp;
-                            <Button onClick={this.handleReset}>Reset</Button>
+                        <BoxFooter theme={this.state.theme}>
+                            <Button theme={this.state.theme} onClick={this.handleSubmit}variant='orange'>Save</Button> &nbsp;
+                            <Button theme={this.state.theme} onClick={this.handleReset}>Reset</Button>
                         </BoxFooter>
                     </Box>
                 </form>

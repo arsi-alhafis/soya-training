@@ -5,7 +5,7 @@ import { createPageWithOIDCAuth, OIDCAuthorize } from '@traveloka/soya-component
 import CurrenciesTable from '../../containers/page/currencies/CurrenciesTable';
 import { ModalContainer } from '@traveloka/soya-components';
 
-const title = 'Tools';
+const title = 'Soya - Currencies';
 const heading = 'Currencies';
 
 const IndexPage = () => (

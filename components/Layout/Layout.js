@@ -4,6 +4,7 @@ import { OIDCLayout } from '@traveloka/soya-components/ath';
 import Link from 'next/link'
 import "@traveloka/soya-components/styles";
 import { NotificationContainer } from '@traveloka/soya-components';
+import Head from "next/head";
 
 const getNavBarMenus = () => [
   {
@@ -26,9 +27,9 @@ const getNavBarMenus = () => [
           <Icon icon="local-atm" /> Currencies
         </a>
       </Link>,
-      <Link href="/setting">
+      <Link href="/settings">
         <a>
-          <Icon icon="settings" /> Setting
+          <Icon icon="settings" /> Settings
         </a>
       </Link>
     ]
@@ -37,6 +38,9 @@ const getNavBarMenus = () => [
 
 export default ({ children }) => (
   <OIDCLayout menuData={getNavBarMenus()}>
+    <Head>
+          <link rel="shortcut icon" href="/static/favicon.ico" />
+    </Head>
     <NotificationContainer />
     {children}
   </OIDCLayout>

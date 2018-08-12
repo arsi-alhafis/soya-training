@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { parseQueryString } from '../../../util/util';
 import fetch from "isomorphic-unfetch";
-import { Table, TableSection, Text, Button, Icon } from '@traveloka/soya-components';
+import { Table, TableSection, Text, Button, Icon, Breadcrumb } from '@traveloka/soya-components';
 import { Loader, LOADER_COLOR, LOADER_TYPE, LOADER_SIZE } from '@traveloka/soya-components';
 import createHistory from "history/createBrowserHistory"
 import {
@@ -21,13 +21,15 @@ class CurrenciesTable extends React.Component {
         super(props);
         this.state = {
             currencies: null,
-            numberOfPage: 1
+            numberOfPage: 1,
+            theme: 'zetta'
         }
     }
 
     componentDidMount = () => {
+        this.setState({theme: localStorage.getItem('theme')});
         this.refresh();
-    }
+    } 
 
     changePage = e => {
         const page = e.selected + 1;
@@ -91,12 +93,21 @@ class CurrenciesTable extends React.Component {
 
     render() {
 
+        const links = [
+            {
+              title: 'Soya',
+              href: '/'
+            },
+            {
+              title: 'Currencies',
+            }
+          ];
+
         return (
             <div>
-                <Text tag="h1" marginBottom="md">
-                    Currency List
-            </Text>
-                <Table cellSpacing='sm'>
+                <Breadcrumb theme={this.state.theme} links={links} />
+                <br/>
+                <Table theme={this.state.theme} cellSpacing='sm'>
                     <thead>
                         <tr>
                             <th colSpan={5}>
