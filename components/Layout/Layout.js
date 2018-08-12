@@ -3,6 +3,7 @@ import { Icon } from "@traveloka/soya-components";
 import { OIDCLayout } from '@traveloka/soya-components/ath';
 import Link from 'next/link'
 import "@traveloka/soya-components/styles";
+import { NotificationContainer } from '@traveloka/soya-components';
 
 const getNavBarMenus = () => [
   {
@@ -36,6 +37,7 @@ const getNavBarMenus = () => [
 
 export default ({ children }) => (
   <OIDCLayout menuData={getNavBarMenus()}>
+    <NotificationContainer />
     {children}
   </OIDCLayout>
 );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { parseQueryString } from '../../../util/util';
-import fetch from "isomorphic-fetch";
+import fetch from "isomorphic-unfetch";
 import { Table, TableSection, Text, Button } from '@traveloka/soya-components';
 import { Loader, LOADER_COLOR, LOADER_TYPE, LOADER_SIZE } from '@traveloka/soya-components';
 import createHistory from "history/createBrowserHistory"
@@ -14,6 +14,7 @@ import {
   import { Pagination, PAGINATION_TYPE } from '@traveloka/soya-components';
   import { ModalManager, MODAL_TYPE } from '@traveloka/soya-components';
   import Link from 'next/link';
+  import { NotificationManager } from '@traveloka/soya-components';
 
 class CurrenciesTable extends React.Component {
     constructor(props) {
@@ -37,6 +38,14 @@ class CurrenciesTable extends React.Component {
         this.refresh();
     }
 
+    showSuccessNotif = () => {
+        NotificationManager.showSuccess('Successfully Remove Currency');
+    }
+
+    showErrorNotif = () => {
+        NotificationManager.showError('An Error Occured');
+    }
+
     showConfirmModal = async (id, name) => {
         console.log(id);
 
@@ -56,8 +65,11 @@ class CurrenciesTable extends React.Component {
             response.json().then(json => {
                 console.log(json);
                 this.refresh();
+                this.showSuccessNotif();
             })
-        );
+        ).catch(error => {
+            this.showErrorNotif();
+        });
     }
 
     refresh = async () => {
@@ -119,7 +131,7 @@ class CurrenciesTable extends React.Component {
                                                 &nbsp;
                                             <Button
                                                 variant="red"
-                                                onClick={async () => await this.showConfirmModal(currency.id, currency.name)}
+                                                onClick={() => this.showConfirmModal(currency.id, currency.name)}
                                                 type={BUTTON_TYPE.BUTTON || 'button'}
                                                 iconProps={{ icon: 'trash' }}
                                                 />
