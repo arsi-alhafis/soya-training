@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { parseQueryString } from '../../../util/util';
 import fetch from "isomorphic-unfetch";
-import { Table, TableSection, Text, Button } from '@traveloka/soya-components';
+import { Table, TableSection, Text, Button, Icon } from '@traveloka/soya-components';
 import { Loader, LOADER_COLOR, LOADER_TYPE, LOADER_SIZE } from '@traveloka/soya-components';
 import createHistory from "history/createBrowserHistory"
 import {
@@ -121,13 +121,15 @@ class CurrenciesTable extends React.Component {
                                         <td>{currency.code}</td>
                                         <td>{currency.name}</td>
                                         <td>{currency.symbol}</td>
-                                        <td>{currency.isActive ? "a" : "b"}</td>
+                                        <td>{currency.isActive ? <Icon icon="check" /> : <Icon icon="close" />}</td>
                                         <td>
-                                            <Button
-                                                variant="green"
-                                                type={BUTTON_TYPE.BUTTON || 'button'}
-                                                iconProps={{ icon: 'edit' }}
-                                                />
+                                            <Link href={'currencies/edit?id=' + currency.id}>
+                                                <Button
+                                                    variant="green"
+                                                    type={BUTTON_TYPE.BUTTON || 'button'}
+                                                    iconProps={{ icon: 'edit' }}
+                                                    />
+                                            </Link>
                                                 &nbsp;
                                             <Button
                                                 variant="red"
