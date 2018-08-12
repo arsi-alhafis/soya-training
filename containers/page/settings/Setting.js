@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Breadcrumb, Select, Label } from '@traveloka/soya-components';
 
 class Setting extends React.Component {
@@ -12,11 +11,11 @@ class Setting extends React.Component {
 
     componentDidMount = () => {
         const theme = localStorage.getItem('theme');
-        this.setState({theme});
+        this.setState({ theme });
     }
 
     handleChange = e => {
-        this.setState({theme: e});
+        this.setState({ theme: e });
         localStorage.setItem('theme', e);
     }
 
@@ -29,7 +28,7 @@ class Setting extends React.Component {
             {
                 title: 'Settings',
             }
-          ];
+        ];
 
         const options = [
             {
@@ -39,15 +38,15 @@ class Setting extends React.Component {
                 label: 'Zetta', value: 'zetta'
             }
         ];
-          
+
 
         return (
             <div>
-                <br/>
+                <br />
                 <Breadcrumb theme={this.state.theme} links={links} />
-                <br/>
+                <br />
                 <Label theme={this.state.theme}>Theme</Label>
-                <Select theme={this.state.theme} handleChange={this.handleChange} value={this.state.theme} options={options}/>
+                <Select theme={this.state.theme} handleChange={this.handleChange} value={this.state.theme} options={options} />
             </div>
         );
     }

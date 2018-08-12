@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-
 import fetch from "isomorphic-unfetch";
-import { Box, Switch, Label, BoxBody, BoxEmpty, BoxHeader, BoxFooter, Breadcrumb } from '@traveloka/soya-components';
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupButton,
-    Input,
-    Button
-  } from '@traveloka/soya-components';
-  import { NotificationManager } from '@traveloka/soya-components';
-  import { parseQueryString } from '../../../util/util';
+import { Box, Switch, Label, BoxBody, BoxFooter, Breadcrumb, Button, Input, NotificationManager } from '@traveloka/soya-components';
+import { parseQueryString } from '../../../util/util';
 
 class CurrenciesForm extends React.Component {
     constructor(props) {
@@ -38,7 +29,7 @@ class CurrenciesForm extends React.Component {
         const res = await fetch("http://soya-training.test.tvlk.cloud:3001/currency/" + id);
         const cur = await res.json();
         const data = await cur['data'];
-        
+
         this.setState({
             currencyId: id,
             currencyName: data.currency.name,
@@ -106,7 +97,7 @@ class CurrenciesForm extends React.Component {
     }
 
     handleActive = e => {
-        this.setState({isActive: e});
+        this.setState({ isActive: e });
     }
 
     handleReset = () => {
@@ -120,7 +111,7 @@ class CurrenciesForm extends React.Component {
 
     handleSubmit = () => {
         const valid = this.check();
-        if(valid) {
+        if (valid) {
             fetch("http://soya-training.test.tvlk.cloud:3001/currency/" + this.state.currencyId, {
                 method: 'PATCH',
                 headers: {
@@ -145,7 +136,7 @@ class CurrenciesForm extends React.Component {
 
     check = () => {
         let valid = true;
-        if(this.state.currencyName === "") {
+        if (this.state.currencyName === "") {
             this.setState({
                 showErrorName: true,
                 errorMessageName: ['This field is required']
@@ -153,7 +144,7 @@ class CurrenciesForm extends React.Component {
             valid = false;
         }
 
-        if(this.state.currencyCode === "") {
+        if (this.state.currencyCode === "") {
             this.setState({
                 showErrorCode: true,
                 errorMessageCode: ['This field is required']
@@ -161,7 +152,7 @@ class CurrenciesForm extends React.Component {
             valid = false;
         }
 
-        if(this.state.currencySymbol === "") {
+        if (this.state.currencySymbol === "") {
             this.setState({
                 showErrorSymbol: true,
                 errorMessageSymbol: ['This field is required']
@@ -175,58 +166,58 @@ class CurrenciesForm extends React.Component {
 
         const links = [
             {
-              title: 'Soya',
-              href: '/'
+                title: 'Soya',
+                href: '/'
             },
             {
                 title: 'Currencies',
                 href: '/currencies'
             },
             {
-              title: this.state.currencyName,
+                title: this.state.currencyName,
             }
-          ];
+        ];
 
         return (
             <div>
-                <br/>
+                <br />
                 <Breadcrumb theme={this.state.theme} links={links} />
-                <br/>
+                <br />
                 <form>
                     <Box theme={this.state.theme}>
                         <BoxBody theme={this.state.theme}>
                             <Label theme={this.state.theme} isRequired>Currency Code</Label>
                             <Input
-                            theme={this.state.theme}
-                            value={this.state.currencyCode}
-                            handleChange={this.handleCode}
-                            showErrorMessage={this.state.showErrorCode}
-                            placeholder='IDR'
-                            errorMessages={this.state.errorMessageCode}
+                                theme={this.state.theme}
+                                value={this.state.currencyCode}
+                                handleChange={this.handleCode}
+                                showErrorMessage={this.state.showErrorCode}
+                                placeholder='IDR'
+                                errorMessages={this.state.errorMessageCode}
                             />
                             <Label theme={this.state.theme} isRequired>Currency Name</Label>
                             <Input
-                            theme={this.state.theme}
-                            value={this.state.currencyName}
-                            placeholder='Indonesia Rupiah'
-                            handleChange={this.handleName}
-                            showErrorMessage={this.state.showErrorName}
-                            errorMessages={this.state.errorMessageName}
+                                theme={this.state.theme}
+                                value={this.state.currencyName}
+                                placeholder='Indonesia Rupiah'
+                                handleChange={this.handleName}
+                                showErrorMessage={this.state.showErrorName}
+                                errorMessages={this.state.errorMessageName}
                             />
                             <Label theme={this.state.theme} isRequired>Currency Symbol</Label>
                             <Input
-                            theme={this.state.theme}
-                            value={this.state.currencySymbol}
-                            placeholder='Rp'
-                            handleChange={this.handleSymbol}
-                            showErrorMessage={this.state.showErrorSymbol}
-                            errorMessages={this.state.errorMessageSymbol}
+                                theme={this.state.theme}
+                                value={this.state.currencySymbol}
+                                placeholder='Rp'
+                                handleChange={this.handleSymbol}
+                                showErrorMessage={this.state.showErrorSymbol}
+                                errorMessages={this.state.errorMessageSymbol}
                             />
                             <Label theme={this.state.theme}>Is Active?</Label>
-                            <Switch theme={this.state.theme} value={this.state.isActive} onChange={this.handleActive}/>
+                            <Switch theme={this.state.theme} value={this.state.isActive} onChange={this.handleActive} />
                         </BoxBody>
                         <BoxFooter theme={this.state.theme}>
-                            <Button theme={this.state.theme} onClick={this.handleSubmit}variant='orange'>Save</Button> &nbsp;
+                            <Button theme={this.state.theme} onClick={this.handleSubmit} variant='orange'>Save</Button> &nbsp;
                             <Button theme={this.state.theme} onClick={this.handleReset}>Reset</Button>
                         </BoxFooter>
                     </Box>

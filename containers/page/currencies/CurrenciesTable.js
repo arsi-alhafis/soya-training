@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
-
 import { parseQueryString } from '../../../util/util';
 import fetch from "isomorphic-unfetch";
-import { Table, TableSection, Text, Button, Icon, Breadcrumb } from '@traveloka/soya-components';
-import { Loader, LOADER_COLOR, LOADER_TYPE, LOADER_SIZE } from '@traveloka/soya-components';
-import createHistory from "history/createBrowserHistory"
-import {
-    BUTTON_VARIANT,
-    BUTTON_SIZE,
-    BUTTON_TYPE,
-    BUTTON_ICON_POSITION
-  } from '@traveloka/soya-components';
-  import { Pagination, PAGINATION_TYPE } from '@traveloka/soya-components';
-  import { ModalManager, MODAL_TYPE } from '@traveloka/soya-components';
-  import Link from 'next/link';
-  import { NotificationManager } from '@traveloka/soya-components';
+import { Table, Button, Icon, Breadcrumb, Loader, Pagination, ModalManager, MODAL_TYPE, NotificationManager } from '@traveloka/soya-components';
+import createHistory from "history/createBrowserHistory";
+import Link from 'next/link';
 
 class CurrenciesTable extends React.Component {
     constructor(props) {
@@ -29,10 +18,9 @@ class CurrenciesTable extends React.Component {
 
     componentDidMount = () => {
         let page = parseQueryString().page !== undefined ? parseQueryString().page : 1;
-        console.log(page);
-        this.setState({theme: localStorage.getItem('theme'), currentPage: page - 1});
+        this.setState({ theme: localStorage.getItem('theme'), currentPage: page - 1 });
         this.refresh();
-    } 
+    }
 
     changePage = e => {
         const page = e.selected + 1;
@@ -91,25 +79,25 @@ class CurrenciesTable extends React.Component {
         const cur = await res.json();
         const data = await cur['data'];
 
-        this.setState({currencies: data.currencies, numberOfPage: data.pageCount});
+        this.setState({ currencies: data.currencies, numberOfPage: data.pageCount });
     }
 
     render() {
 
         const links = [
             {
-              title: 'Soya',
-              href: '/'
+                title: 'Soya',
+                href: '/'
             },
             {
-              title: 'Currencies',
+                title: 'Currencies',
             }
-          ];
+        ];
 
         return (
             <div>
                 <Breadcrumb theme={this.state.theme} links={links} />
-                <br/>
+                <br />
                 <Table theme={this.state.theme} cellSpacing='sm'>
                     <thead>
                         <tr>
@@ -140,21 +128,19 @@ class CurrenciesTable extends React.Component {
                                             <Link href={'currencies/edit?id=' + currency.id}>
                                                 <Button
                                                     variant="green"
-                                                    type={BUTTON_TYPE.BUTTON || 'button'}
                                                     iconProps={{ icon: 'edit' }}
-                                                    />
+                                                />
                                             </Link>
-                                                &nbsp;
+                                            &nbsp;
                                             <Button
                                                 variant="red"
                                                 onClick={() => this.showConfirmModal(currency.id, currency.name)}
-                                                type={BUTTON_TYPE.BUTTON || 'button'}
                                                 iconProps={{ icon: 'trash' }}
-                                                />
+                                            />
                                         </td>
                                     </tr>
                                 ))
-                                : 
+                                :
                                 <tr>
                                     <td colSpan={5}>
                                         <Loader />
@@ -164,13 +150,13 @@ class CurrenciesTable extends React.Component {
                     </tbody>
                     {
                         this.state.currencies !== undefined ?
-                        <tfoot>
-                            <tr>
-                                <td colSpan={5}>
-                                    <Pagination onPageChange={this.changePage} initialPage={this.state.currentPage} totalPage={this.state.numberOfPage} marginBottom />
-                                </td>
-                            </tr>
-                        </tfoot> : <tfoot></tfoot>
+                            <tfoot>
+                                <tr>
+                                    <td colSpan={5}>
+                                        <Pagination onPageChange={this.changePage} initialPage={this.state.currentPage} totalPage={this.state.numberOfPage} marginBottom />
+                                    </td>
+                                </tr>
+                            </tfoot> : <tfoot></tfoot>
                     }
                 </Table>
             </div>

@@ -1,8 +1,9 @@
 import Head from "next/head";
-const Layout = require("../../components/Layout/Layout").default;
 import React from 'react';
 import { createPageWithOIDCAuth, OIDCAuthorize } from '@traveloka/soya-components/ath';
 import CurrenciesForm from '../../containers/page/currencies/CurrenciesForm';
+import Layout from "../../components/Layout/Layout";
+
 const title = 'Tools';
 const heading = 'Add Currencies';
 
@@ -11,9 +12,9 @@ const IndexPage = () => (
     <Layout>
       <div>
         <Head>
-          <title>{ title }</title>
+          <title>{title}</title>
         </Head>
-        <h1>{ heading }</h1>
+        <h1>{heading}</h1>
         <CurrenciesForm />
       </div>
     </Layout>

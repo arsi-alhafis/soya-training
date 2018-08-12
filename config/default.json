@@ -1,9 +1,9 @@
 {
-  "apiHost": "https://crud.test.tvlk.cloud",
+  "apiHost": "",
   "auth": {
     "authURL": "https://tvlk-dev.auth0.com/authorize",
-    "clientId": "Wk1sn3mQfdtfw1oRpEY6dFWN3MFmUJj2",
-    "audience": "https://tvlk/crud",
+    "clientId": "26ZHVbjhmvni7EPptrctLSNly6HYfgHl",
+    "audience": "https://tvlk/soya",
     "callbackPath": "/callback",
     "rememberMe": true,
     "checkTokenExpiryInterval": 600,

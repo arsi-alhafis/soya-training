@@ -1,9 +1,8 @@
 import React from 'react';
-import { Icon } from "@traveloka/soya-components";
+import { Icon, NotificationContainer } from "@traveloka/soya-components";
 import { OIDCLayout } from '@traveloka/soya-components/ath';
 import Link from 'next/link'
 import "@traveloka/soya-components/styles";
-import { NotificationContainer } from '@traveloka/soya-components';
 import Head from "next/head";
 
 const getNavBarMenus = () => [
@@ -39,7 +38,7 @@ const getNavBarMenus = () => [
 export default ({ children }) => (
   <OIDCLayout menuData={getNavBarMenus()}>
     <Head>
-          <link rel="shortcut icon" href="/static/favicon.ico" />
+      <link rel="shortcut icon" href="/static/favicon.ico" />
     </Head>
     <NotificationContainer />
     {children}

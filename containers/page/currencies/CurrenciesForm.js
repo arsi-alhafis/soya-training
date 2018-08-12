@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
-
 import fetch from "isomorphic-unfetch";
-import { Box, Switch, Label, BoxBody, BoxEmpty, BoxHeader, BoxFooter, Breadcrumb } from '@traveloka/soya-components';
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupButton,
-    Input,
-    Button
-  } from '@traveloka/soya-components';
-  import { NotificationManager } from '@traveloka/soya-components';
+import { Box, Switch, Label, BoxBody, BoxFooter, Breadcrumb, Button, Input, NotificationManager } from '@traveloka/soya-components';
 
 class CurrenciesForm extends React.Component {
     constructor(props) {

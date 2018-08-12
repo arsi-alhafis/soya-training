@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-
 import { Breadcrumb, Select, Label } from '@traveloka/soya-components';
 import Link from 'next/link';
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     theme: 'zetta'
-        // };
     }
 
     render() {
@@ -20,7 +16,7 @@ class Home extends React.Component {
             {
                 title: 'Settings',
             }
-          ];
+        ];
 
         const options = [
             {
@@ -30,18 +26,18 @@ class Home extends React.Component {
                 label: 'Zetta', value: 'zetta'
             }
         ];
-          
+
 
         return (
             <div>
-                <br/>
+                <br />
                 <span>
-                <Link href='/currencies'>
-                    <a>Currencies</a>
-                </Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link href='/currencies'>
+                        <a>Currencies</a>
+                    </Link>&nbsp;&nbsp;&nbsp;&nbsp;
                 <Link href='/settings'>
-                    <a>Settings</a>
-                </Link>
+                        <a>Settings</a>
+                    </Link>
                 </span>
             </div>
         );
