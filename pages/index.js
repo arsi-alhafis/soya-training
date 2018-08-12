@@ -1,5 +1,5 @@
 import Head from "next/head";
-const Layout = require("../components/Layout/Layout").default;
+import Layout from "../components/Layout/Layout";
 import React from 'react';
 import { createPageWithOIDCAuth, OIDCAuthorize } from '@traveloka/soya-components/ath';
 const title = 'Tools';

@@ -1,10 +1,8 @@
-import Head from "next/head";
 import React from 'react';
-import styles from "./Layout.module.css";
-import { Icon, SideNav } from "@traveloka/soya-components";
-import "../../styles/global.css";
+import { Icon } from "@traveloka/soya-components";
 import { OIDCLayout } from '@traveloka/soya-components/ath';
 import Link from 'next/link'
+import "@traveloka/soya-components/styles";
 
 const getNavBarMenus = () => [
   {
