@@ -6,6 +6,8 @@ class CurrenciesForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: false,
+            isDisabled: false,
             currencyId: "",
             isEdit: false,
             currencyName: "",
@@ -108,15 +110,29 @@ class CurrenciesForm extends React.Component {
     }
 
     handleReset = () => {
-        this.setState({
-            currencyName: "",
-            currencyCode: "",
-            currencySymbol: "",
-            isActive: false
-        });
+        if (!this.state.isEdit) {
+            this.setState({
+                currencyName: "",
+                currencyCode: "",
+                currencySymbol: "",
+                isActive: false,
+                isLoading: false,
+                isDisabled: false
+            });
+        } else {
+            this.setState({
+                isLoading: false,
+                isDisabled: false
+            });
+        }
     }
 
     handleSubmit = () => {
+        this.setState({
+            isLoading: true,
+            isDisabled: true
+        });
+
         if (this.state.isEdit) {
             this.handleEdit();
         } else {
@@ -167,6 +183,7 @@ class CurrenciesForm extends React.Component {
                 })
             }).then(response =>
                 response.json().then(json => {
+                    this.handleReset();
                     this.showSuccessNotif();
                 })
             ).catch(error => {
@@ -234,6 +251,7 @@ class CurrenciesForm extends React.Component {
                             showErrorMessage={this.state.showErrorCode}
                             placeholder='IDR'
                             errorMessages={this.state.errorMessageCode}
+                            isDisabled={this.state.isDisabled}
                             />
                             <Label theme={this.state.theme} isRequired>Currency Name</Label>
                             <Input
@@ -243,6 +261,7 @@ class CurrenciesForm extends React.Component {
                             handleChange={this.handleName}
                             showErrorMessage={this.state.showErrorName}
                             errorMessages={this.state.errorMessageName}
+                            isDisabled={this.state.isDisabled}
                             />
                             <Label theme={this.state.theme} isRequired>Currency Symbol</Label>
                             <Input
@@ -252,12 +271,13 @@ class CurrenciesForm extends React.Component {
                             handleChange={this.handleSymbol}
                             showErrorMessage={this.state.showErrorSymbol}
                             errorMessages={this.state.errorMessageSymbol}
+                            isDisabled={this.state.isDisabled}
                             />
                             <Label theme={this.state.theme}>Is Active?</Label>
-                            <Switch theme={this.state.theme} value={this.state.isActive} onChange={this.handleActive}/>
+                            <Switch theme={this.state.theme} value={this.state.isActive} onChange={this.handleActive} isDisabled={this.state.isDisabled}/>
                         </BoxBody>
                         <BoxFooter theme={this.state.theme}>
-                            <Button theme={this.state.theme} onClick={this.handleSubmit}variant='orange'>Save</Button> &nbsp;
+                            <Button loaderProps={{type: 'circular'}} isLoading={this.state.isLoading} theme={this.state.theme} onClick={this.handleSubmit}variant='orange'>Save</Button> &nbsp;
                             <Button theme={this.state.theme} onClick={this.handleReset}>Reset</Button>
                         </BoxFooter>
                     </Box>

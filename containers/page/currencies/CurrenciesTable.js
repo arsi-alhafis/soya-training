@@ -56,7 +56,6 @@ class CurrenciesTable extends React.Component {
             method: 'delete'
         }).then(response =>
             response.json().then(json => {
-                console.log(json);
                 this.refresh();
                 this.showSuccessNotif();
             })
