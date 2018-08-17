@@ -6,6 +6,8 @@ class CurrenciesForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            currencyId: "",
+            isEdit: false,
             currencyName: "",
             currencyCode: "",
             currencySymbol: "",
@@ -20,12 +22,33 @@ class CurrenciesForm extends React.Component {
         }
     }
 
-    componentDidMount = () => {
+    componentWillMount = async () => {
         this.setState({theme: localStorage.getItem('theme')});
+
+        const id = this.props.currencyId;
+        if (id !== undefined) {
+            const res = await fetch("http://soya-training.test.tvlk.cloud:3001/currency/" + id);
+            const cur = await res.json();
+            const data = await cur['data'];
+
+            this.setState({
+                currencyId: id,
+                currencyName: data.currency.name,
+                currencyCode: data.currency.code,
+                currencySymbol: data.currency.symbol,
+                isActive: data.currency.isActive,
+                theme: localStorage.getItem('theme'),
+                isEdit: true
+            });
+        }
     }
 
     showSuccessNotif = () => {
-        NotificationManager.showSuccess('Successfully Add Currency');
+        if (this.state.isEdit) {
+            NotificationManager.showSuccess('Successfully Edit Currency');
+        } else {
+            NotificationManager.showSuccess('Successfully Add Currency');
+        }
     }
 
     showErrorNotif = () => {
@@ -94,6 +117,14 @@ class CurrenciesForm extends React.Component {
     }
 
     handleSubmit = () => {
+        if (this.state.isEdit) {
+            this.handleEdit();
+        } else {
+            this.handleAdd();
+        }
+    }
+
+    handleAdd = () => {
         const valid = this.check();
         if(valid) {
             fetch("http://soya-training.test.tvlk.cloud:3001/currency/", {
@@ -111,6 +142,31 @@ class CurrenciesForm extends React.Component {
             }).then(response =>
                 response.json().then(json => {
                     this.handleReset();
+                    this.showSuccessNotif();
+                })
+            ).catch(error => {
+                this.showErrorNotif();
+            });
+        }
+    }
+
+    handleEdit = () => {
+        const valid = this.check();
+        if (valid) {
+            fetch("http://soya-training.test.tvlk.cloud:3001/currency/" + this.state.currencyId, {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: this.state.currencyCode,
+                    name: this.state.currencyName,
+                    symbol: this.state.currencySymbol,
+                    isActive: this.state.isActive
+                })
+            }).then(response =>
+                response.json().then(json => {
                     this.showSuccessNotif();
                 })
             ).catch(error => {
@@ -158,7 +214,7 @@ class CurrenciesForm extends React.Component {
                 href: '/currencies'
             },
             {
-              title: 'Add',
+              title: this.state.isEdit ? 'Edit' : 'Add' ,
             }
           ];
 

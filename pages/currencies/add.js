@@ -8,16 +8,16 @@ const title = 'Tools';
 const heading = 'Add Currencies';
 
 const IndexPage = () => (
-  <OIDCAuthorize>
-    <Layout>
-      <div>
-        <Head>
-          <title>{title}</title>
-        </Head>
-        <h1>{heading}</h1>
-        <CurrenciesForm />
-      </div>
-    </Layout>
-  </OIDCAuthorize>
+    <OIDCAuthorize>
+        <Layout>
+            <div>
+                <Head>
+                    <title>{title}</title>
+                </Head>
+                <h1>{heading}</h1>
+                <CurrenciesForm />
+            </div>
+        </Layout>
+    </OIDCAuthorize>
 );
 export default createPageWithOIDCAuth()(IndexPage);
