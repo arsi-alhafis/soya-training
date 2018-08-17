@@ -10,6 +10,7 @@ class CurrenciesTable extends React.Component {
         super(props);
         this.state = {
             currencies: undefined,
+            deleteLoading: false,
             numberOfPage: 1,
             theme: 'zetta',
             currentPage: 0
@@ -45,22 +46,36 @@ class CurrenciesTable extends React.Component {
         ModalManager.show({
             type: MODAL_TYPE.CONFIRM,
             body: 'Are you sure want to delete ' + name + '?',
-            onConfirm: async () => {
-                await this.delete(id);
-            }
+            footer: (
+                <div>
+                  <Button variant='link-black' onClick={() => ModalManager.dismiss()}>
+                    Close
+                  </Button>
+                  <Button loaderProps={{type: 'circular'}} isLoading={this.state.deleteLoading} variant='orange' onClick={() => this.delete(id)}>
+                    Yes
+                  </Button>
+                </div>
+              )
+            // onConfirm: async () => {
+            //     await this.delete(id);
+            // }
         });
     }
 
     delete = (id) => {
+        this.setState({deleteLoading: true});
         fetch("http://soya-training.test.tvlk.cloud:3001/currency/" + id, {
             method: 'delete'
         }).then(response =>
             response.json().then(json => {
+                this.setState({deleteLoading: false});
                 this.refresh();
                 this.showSuccessNotif();
+                ModalManager.dismiss();
             })
         ).catch(error => {
             this.showErrorNotif();
+            ModalManager.dismiss();
         });
     }
 
