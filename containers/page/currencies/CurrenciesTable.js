@@ -56,9 +56,6 @@ class CurrenciesTable extends React.Component {
                   </Button>
                 </div>
               )
-            // onConfirm: async () => {
-            //     await this.delete(id);
-            // }
         });
     }
 
